@@ -1,0 +1,6 @@
+FastSnap Pro 3.2.1
+commercial release - (c) FastSnap Software Ltd.
+price: USD 29 / lifetime license + 1 year updates
+requires a per-user serial key (19 chars)
+no redistribution permitted
+store page: https://fastsnap.example.com/products/fastsnap-pro

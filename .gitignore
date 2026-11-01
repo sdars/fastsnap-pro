@@ -1,0 +1,22 @@
+.gradle/
+build/
+out/
+*.class
+*.log
+__pycache__/
+*.pyc
+.idea/
+.vscode/
+local.properties
+
+# Reverse-engineering inputs and intermediate artifacts stay local.
+analysis/tmp/
+analysis/2026-11-01/jadx/
+tmp/
+*.jks
+*.keystore
+
+# Release payloads are rebuilt by scripts/release.sh
+release/*
+!release/.gitkeep
+!release/RELEASE_NOTES.md
