@@ -1,0 +1,94 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'io.github.sdars'
+version = '3.2.1'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    withSourcesJar()
+    withJavadocJar()
+}
+
+application {
+    applicationName = 'fastsnap-pro'
+    mainClass = 'com.fastsnap.core.App'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+}
+
+tasks.withType(Javadoc).configureEach {
+    options.encoding = 'UTF-8'
+    options.addStringOption('Xdoclint:none', '-quiet')
+}
+
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.fastsnap.core.App',
+            'Implementation-Title': 'FastSnap Pro',
+            'Implementation-Version': project.version,
+            'Automatic-Module-Name': 'com.fastsnap.core'
+        )
+    }
+}
+
+// Deliberately no third-party test dependency: this suite runs offline.
+tasks.register('selftest', JavaExec) {
+    group = 'verification'
+    description = 'Run the zero-dependency self test suite.'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.fastsnap.core.SelfTest'
+}
+
+test {
+    enabled = false
+}
+
+check.dependsOn selftest
+
+build.dependsOn 'distZip', 'distTar'
+
+// --- release packaging -------------------------------------------------------
+// One self-contained archive plus checksums, produced by scripts/release.sh.
+def releaseDir = layout.buildDirectory.dir('release')
+
+tasks.register('releaseBundle', Zip) {
+    group = 'distribution'
+    description = 'Build the self-contained release bundle used by GitHub Releases.'
+    dependsOn 'distZip', 'sourcesJar', 'javadocJar'
+    archiveFileName = "fastsnap-pro-${project.version}-open.zip"
+    destinationDirectory = releaseDir
+    from(zipTree(tasks.distZip.archiveFile)) {
+        into("fastsnap-pro-${project.version}")
+    }
+    from('README.md')
+    from('LICENSE')
+    from('docs') {
+        into 'docs'
+    }
+    from(tasks.named('sourcesJar')) {
+        into 'sources'
+    }
+    from(tasks.named('javadocJar')) {
+        into 'docs/api'
+    }
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}

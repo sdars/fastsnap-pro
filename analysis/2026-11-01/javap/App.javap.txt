@@ -1,0 +1,60 @@
+Compiled from "App.java"
+public final class com.fastsnap.core.App {
+  public static final java.lang.String VERSION = "3.2.1";
+
+  public com.fastsnap.core.App();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static void main(java.lang.String[]);
+    Code:
+       0: aload_0
+       1: arraylength
+       2: ifle          11
+       5: aload_0
+       6: iconst_0
+       7: aaload
+       8: goto          13
+      11: ldc           #7                  // String
+      13: astore_1
+      14: aload_1
+      15: invokestatic  #9                  // Method com/fastsnap/core/Lic.parse:(Ljava/lang/String;)Lcom/fastsnap/core/Lic;
+      18: astore_2
+      19: aload_2
+      20: ifnonnull     43
+      23: getstatic     #15                 // Field java/lang/System.out:Ljava/io/PrintStream;
+      26: ldc           #23                 // String FastSnap Pro 3.2.1)
+      28: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+      31: getstatic     #15                 // Field java/lang/System.out:Ljava/io/PrintStream;
+      34: ldc           #31                 // String invalid serial
+      36: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+      39: iconst_2
+      40: invokestatic  #33                 // Method java/lang/System.exit:(I)V
+      43: aload_2
+      44: invokestatic  #37                 // Method java/lang/System.currentTimeMillis:()J
+      47: invokevirtual #41                 // Method com/fastsnap/core/Lic.valid:(J)Z
+      50: ifne          80
+      53: getstatic     #15                 // Field java/lang/System.out:Ljava/io/PrintStream;
+      56: ldc           #23                 // String FastSnap Pro 3.2.1)
+      58: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+      61: getstatic     #15                 // Field java/lang/System.out:Ljava/io/PrintStream;
+      64: aload_2
+      65: invokevirtual #45                 // Method com/fastsnap/core/Lic.owner:()Ljava/lang/String;
+      68: invokedynamic #49,  0             // InvokeDynamic #0:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+      73: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+      76: iconst_3
+      77: invokestatic  #33                 // Method java/lang/System.exit:(I)V
+      80: getstatic     #15                 // Field java/lang/System.out:Ljava/io/PrintStream;
+      83: ldc           #23                 // String FastSnap Pro 3.2.1)
+      85: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+      88: getstatic     #15                 // Field java/lang/System.out:Ljava/io/PrintStream;
+      91: aload_2
+      92: invokevirtual #45                 // Method com/fastsnap/core/Lic.owner:()Ljava/lang/String;
+      95: aload_2
+      96: invokevirtual #53                 // Method com/fastsnap/core/Lic.expires:()J
+      99: invokedynamic #56,  0             // InvokeDynamic #1:makeConcatWithConstants:(Ljava/lang/String;J)Ljava/lang/String;
+     104: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+     107: return
+}
